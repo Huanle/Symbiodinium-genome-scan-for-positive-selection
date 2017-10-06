@@ -9,6 +9,6 @@ this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can 
 
       sed 's/>/>Species_ID|/' <seqeunce_file> > reformated.seq 
 
-      ***you can do some filtering using orthomcl utility orthomclFilterFasta if you wish.***
+      ## you can do some filtering using orthomcl utility **orthomclFilterFasta** if you wish.
 
 2. 
