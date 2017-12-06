@@ -6,6 +6,7 @@ Analyses results have been published: https://www.biorxiv.org/content/early/2017
 Refer to Supplementary Figure 6 of the paper. 
 
 # Commands
+
 1. prepare fasta sequences of amino acids and CDS (coding) sequences 
 this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can be done using 'orthomclAdjustFasta' - an Orthomcl (v2+) utility or simply with unix sed command.
 
@@ -13,4 +14,6 @@ this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can 
       sed 's/>/>Species_ID|/' cds.fasta > cds.fna 
       # you can do some filtering using orthomcl utility orthomclFilterFasta if you wish.
 
-2. 
+2. put all sequence files (each stands for one species) in a folder
+      " mkdir 15_species " 
+      
