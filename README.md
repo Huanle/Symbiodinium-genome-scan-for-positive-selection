@@ -15,28 +15,24 @@ this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can 
       you can do some filtering using orthomcl utility orthomclFilterFasta if you wish.
 
 2. put all sequence files (each stands for one species) in a folder
-1) 
-mkdir 15_species 
+1) mkdir 15_species 
 
-2) 
-orthofinder -f 15_species/ 
+2) orthofinder -f 15_species/ 
 orthofinder allows you to stop analyses at certain step(s). This is useful. For instance, when you want speed up reciprocal blast. 
 you can try commands such as " orthofinder -f 15_species/ -op ". This command will prepare everything including the structured directories and the commands needed for all-vs-all blastp. You can then run these commands on your cluster in your favorite way (job arrays for example). Other designated stops, such as stop after detection of orthologs or stop after tree inference enable saving time and customized analyses.
 i am running version 1.4, the latest version seems to be more versatile. So you are encouraged to exploit it.
 
-3)  
-awk '{print $2}' SpeciesIDs.txt|cut -d '.' -f1 > sp_id  # this gives you all species IDs of your own choice in one file.
+3)  awk '{print $2}' SpeciesIDs.txt|cut -d '.' -f1 > sp_id  # this gives you all species IDs of your own choice in one file.
 
-4) 
-perl metrics.orthgrp.pl sp_id Orthogroups.txt S[ABCF]\d*\|  > stat.otgp.txt # this generates basic metrics such as no. of genes, no. of genes from species of interest from each ortho-Group. the latest version of orthofinder produce this file automatically. so you can skip this if you are using the new program. Orthogroups.txt is the output from orthofinder. S[ABCF]\d*\| is a regular expression used to scan all genes from all species of interest. 
+4)  perl metrics.orthgrp.pl sp_id Orthogroups.txt S[ABCF]\d*\|  > stat.otgp.txt # this generates basic metrics such as no. of genes, no. of genes from species of interest from each ortho-Group. the latest version of orthofinder produce this file automatically. so you can skip this if you are using the new program. Orthogroups.txt is the output from orthofinder. S[ABCF]\d*\| is a regular expression used to scan all genes from all species of interest. 
 
-5) # bsaed on the above file, youc an easily select, say, symbiodinium specific genes
+5) bsaed on the above file, youc an easily select, say, symbiodinium specific genes
 awk '$1 == $5' stat.otgp.txt| cut -d ' ' -f9- | sed 's/://' > sym_specific.ogrp.txt 
 
-6) # generate single copy orthogoups 
+6)  generate single copy orthogoups 
 awk '$1>3 &&  $3 == $1 && $5>0' stat.otgp.txt | cut -d ' ' -f9- |sed 's/://' > Single_Copy.txt
 
-7) # and paralogous ortho-groups
+7)  and paralogous ortho-groups
 awk '$1>3 &&  $3 == $1 && $5>0' stat.otgp.txt | cut -d ' ' -f9- |sed 's/://' > Single_Copy.txt
 
 now let's use these single copy orthogroups to do selection analysis.
@@ -49,7 +45,7 @@ perl print_orthogroups.pl Single_Copy.txt all.pep 90 dna #  dna: input is CDS se
 i found again the newest orthofinder can do this for you. so congrates as you don't need wrting your own scripts.
 
 9)  it is always to check correspondence of your protein and dna sequences 
-	# a simple example:
+	 a simple example:
 grep -c '>' Family.OG00*pep >P
 grep -c '>' Family.OG00*dna > N
 paste P N | sed 's/:/ /g' |awk '$2!=$4' |wc -l # allows you to find all orthogroups having different no. of dna and pep sequences due to whatever reasons. 
