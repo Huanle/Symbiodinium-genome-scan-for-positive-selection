@@ -15,10 +15,10 @@ this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can 
       you can do some filtering using orthomcl utility orthomclFilterFasta if you wish.
 
 2. put all sequence files (each stands for one species) in a folder
-1) ```
+1) ```	shell
 mkdir 15_species 
-```
-2) ``` 
+
+2) ``` shell
 orthofinder -f 15_species/ 
 ```
 orthofinder allows you to stop analyses at certain step(s). This is useful. For instance, when you want speed up reciprocal blast. 
