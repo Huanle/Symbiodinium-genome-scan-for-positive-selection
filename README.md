@@ -89,3 +89,4 @@ if you are a familiar with perl, some perl modules are available for you to do i
 
 for  i in OG*sp;do perl -e '$f =shift; open A,$f; while (<A>) {chomp; push @a,$_ if /S[ABCF]\d*/;} @b = sort {$a cmp $b}@a; print  "$b[0]\,\,$b[-1]","\n"; ' $i > ${i/sp**/mark};done
 for i in *pal2nal;do mk=`cat ${i}.mark`; echo "ete3 evol -t ${i}.tre --alg $i --mark $mk  --models bsA bsA1  --tests bsA,bsA1 -o ${i/pal**}bsAbsA1  -C 2 >${i/pal**}bsabsa1.log 2>${i/pal**}bsabsa1.err" ;done  > work.sh      
+``` 
