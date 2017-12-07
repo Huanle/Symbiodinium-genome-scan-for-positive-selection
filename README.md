@@ -15,9 +15,12 @@ this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can 
       you can do some filtering using orthomcl utility orthomclFilterFasta if you wish.
 
 2. put all sequence files (each stands for one species) in a folder
-1) mkdir 15_species 
-
-2) orthofinder -f 15_species/ 
+1) ```
+mkdir 15_species 
+```
+2) ``` 
+orthofinder -f 15_species/ 
+```
 orthofinder allows you to stop analyses at certain step(s). This is useful. For instance, when you want speed up reciprocal blast. 
 you can try commands such as " orthofinder -f 15_species/ -op ". This command will prepare everything including the structured directories and the commands needed for all-vs-all blastp. You can then run these commands on your cluster in your favorite way (job arrays for example). Other designated stops, such as stop after detection of orthologs or stop after tree inference enable saving time and customized analyses.
 i am running version 1.4, the latest version seems to be more versatile. So you are encouraged to exploit it.
