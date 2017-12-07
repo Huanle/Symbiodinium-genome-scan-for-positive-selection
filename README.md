@@ -6,6 +6,7 @@ Analyses results have been published: https://www.biorxiv.org/content/early/2017
 Refer to Supplementary Figure 6 of the paper. 
 
 # Commands
+``` shell
 
 1). prepare fasta sequences of amino acids and CDS (coding) sequences 
 this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can be done using 'orthomclAdjustFasta' - an Orthomcl (v2+) utility or simply with unix sed command.
@@ -15,20 +16,17 @@ this is to format sequence IDs in the '>Species_ID|sequence_ID' style. This can 
       you can do some filtering using orthomcl utility orthomclFilterFasta if you wish.
 
 2). put all sequence files (each stands for one species) in a folder
-```	shell
 	mkdir 15_species 
 	orthofinder -f 15_species/ 
-```
 orthofinder allows you to stop analyses at certain step(s). This is useful. For instance, when you want speed up reciprocal blast. 
 you can try commands such as " orthofinder -f 15_species/ -op ". This command will prepare everything including the structured directories and the commands needed for all-vs-all blastp. You can then run these commands on your cluster in your favorite way (job arrays for example). Other designated stops, such as stop after detection of orthologs or stop after tree inference enable saving time and customized analyses.
 i am running version 1.4, the latest version seems to be more versatile. So you are encouraged to exploit it.
 
-3)  ``` shell
-	awk '{print $2}' SpeciesIDs.txt|cut -d '.' -f1 > sp_id  # this gives you all species IDs of your own choice in one file.
-```
-4)  ``` shell
+3) awk '{print $2}' SpeciesIDs.txt|cut -d '.' -f1 > sp_id  # this gives you all species IDs of your own choice in one file.
+
+4) 
 perl metrics.orthgrp.pl sp_id Orthogroups.txt S[ABCF]\d*\|  > stat.otgp.txt 
-``` shell # this generates basic metrics such as no. of genes, no. of genes from species of interest from each ortho-Group. the latest version of orthofinder produce this file automatically. so you can skip this if you are using the new program. Orthogroups.txt is the output from orthofinder. S[ABCF]\d*\| is a regular expression used to scan all genes from all species of interest. 
+# this generates basic metrics such as no. of genes, no. of genes from species of interest from each ortho-Group. the latest version of orthofinder produce this file automatically. so you can skip this if you are using the new program. Orthogroups.txt is the output from orthofinder. S[ABCF]\d*\| is a regular expression used to scan all genes from all species of interest. 
 
 5) bsaed on the above file, youc an easily select, say, symbiodinium specific genes
 awk '$1 == $5' stat.otgp.txt| cut -d ' ' -f9- | sed 's/://' > sym_specific.ogrp.txt 
